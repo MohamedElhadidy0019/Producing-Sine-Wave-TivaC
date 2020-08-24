@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Lab13.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Lab13.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Aug 24 19:34:01 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon Aug 24 20:38:38 2020
 <BR><P>
 <H3>Maximum Stack Usage =        136 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -771,8 +771,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 </UL>
 
-<P><STRONG><a name="[99]"></a>DAC_Init</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, dac.o(i.DAC_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Init
+<P><STRONG><a name="[99]"></a>DAC_Init</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, dac.o(i.DAC_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = DAC_Init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sound_Init
 </UL>
 
 <P><STRONG><a name="[a0]"></a>DAC_Out</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, dac.o(i.DAC_Out))
@@ -791,7 +793,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TExaS_Init
 </UL>
 
-<P><STRONG><a name="[95]"></a>Piano_In</STRONG> (Thumb, 82 bytes, Stack size 8 bytes, piano.o(i.Piano_In))
+<P><STRONG><a name="[95]"></a>Piano_In</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, piano.o(i.Piano_In))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Piano_In
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
@@ -799,8 +801,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[a9]"></a>Piano_Init</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, piano.o(i.Piano_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<P><STRONG><a name="[a9]"></a>Piano_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, piano.o(i.Piano_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Piano_Init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[94]"></a>SetCode</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, texas.o(i.SetCode))
@@ -820,8 +824,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer5A_Handler
 </UL>
 
-<P><STRONG><a name="[98]"></a>Sound_Init</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, sound.o(i.Sound_Init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Sound_Init
+<P><STRONG><a name="[98]"></a>Sound_Init</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, sound.o(i.Sound_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Sound_Init &rArr; DAC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Init
 </UL>
@@ -875,7 +879,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer5A_Handler
 </UL>
 
-<P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, sound.o(i.SysTick_Handler))
+<P><STRONG><a name="[c]"></a>SysTick_Handler</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, sound.o(i.SysTick_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SysTick_Handler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAC_Out

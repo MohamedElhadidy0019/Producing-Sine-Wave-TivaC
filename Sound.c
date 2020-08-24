@@ -23,7 +23,7 @@ void Sound_Init(void){
 	Index=0;
 	//Setup Systick
 	NVIC_ST_CTRL_R=0;
-  NVIC_ST_RELOAD_R=1;
+  NVIC_ST_RELOAD_R=0x00FFFFFF;
   NVIC_ST_CURRENT_R=0;
 	//Setting Systick interrupt
   
@@ -76,7 +76,9 @@ void Sound_Off(void){
 // Executed every 12.5ns*(period)
 void SysTick_Handler(void){
 	
-	Index = (Index+1)&0x0FF;     
+	Index++;
+	if(Index==32) 
+		Index=0;
   DAC_Out(wave[Index]);    // output one value each interrupt
    
 }

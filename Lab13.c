@@ -18,10 +18,11 @@
 int main(void){ // Real Lab13 
 	// for the real board grader to work 
 	// you must connect PD3 to your DAC output
-  TExaS_Init(SW_PIN_PE3210, DAC_PIN_PB3210,ScopeOn); // activate grader and set system clock to 80 MHz
+  
 // PortE used for piano keys, PortB used for DAC        
   Sound_Init(); // initialize SysTick timer and DAC
   Piano_Init();
+	TExaS_Init(SW_PIN_PE3210, DAC_PIN_PB3210,ScopeOn); // activate grader and set system clock to 80 MHz
   EnableInterrupts();  // enable after all initialization are done
   while(1){                
  

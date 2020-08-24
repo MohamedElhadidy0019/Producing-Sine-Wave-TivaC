@@ -13,8 +13,8 @@
 
 #define G    3189   // 784 Hz		
 #define E   3792   // 659.3 Hz		
-#define D   4257   // 587.3 Hz		
-#define C    2389   // 1046.5 Hz		
+#define D   4259   // 587.3 Hz		
+#define C    4780   // 1046.5 Hz		
 
 
 
@@ -22,8 +22,11 @@
 // Initialize piano key inputs
 // Input: PE0-3
 // Output: none
+
 void Piano_Init(void){ 
-	SYSCTL_RCGCGPIO_R|=(1<<4);   //giving clock to portB
+	unsigned long volatile Edelay;
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;  //giving clock to portE
+	Edelay= SYSCTL_RCGC2_R;
 	GPIO_PORTE_DIR_R&=~(0x0F);   //making them input
 	GPIO_PORTE_DEN_R|=0x0F;     //digital enable them
 	
@@ -39,8 +42,7 @@ unsigned long Piano_In(void){
   
   unsigned long Reading=GPIO_PORTE_DATA_R&0x0F;
 	delay(10);
-	if(Reading!=1 ||Reading!=2||Reading!=4||Reading!=8)
-			return 0;
+	
 	if(Reading==1)
 		return C;
 	if(Reading==2)
