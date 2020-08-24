@@ -7,18 +7,35 @@
 // Port B bits 3-0 have the 4-bit DAC
 
 #include "DAC.h"
+#include "delay.h"
 #include "..//tm4c123gh6pm.h"
 
 // **************DAC_Init*********************
 // Initialize 4-bit DAC 
 // Input: none
 // Output: none
+
+
+
+void DAC_Init(void){unsigned long volatile delay;
+  SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB; // activate port B
+  delay = SYSCTL_RCGC2_R;    // allow time to finish activating
+	GPIO_PORTB_DR8R_R |=0x0F;
+  GPIO_PORTB_AMSEL_R &= ~0x0F;      // no analog
+  GPIO_PORTB_PCTL_R &= ~0x00000FFF; // regular GPIO function
+  GPIO_PORTB_DIR_R |= 0x0F;      // make PB2-0 out
+  GPIO_PORTB_AFSEL_R &= ~0x0F;   // disable alt funct on PB2-0
+  GPIO_PORTB_DEN_R |= 0x0F;      // enable digital I/O on PB2-0
+}
+/*
 void DAC_Init(void){
-	SYSCTL_RCGCGPIO_R|=(1<<1); // giving clock to port B
+	unsigned long volatile Bdelay;
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB; // giving clock to port B
+	Bdelay = SYSCTL_RCGC2_R;  
 	GPIO_PORTB_DIR_R|=0x0F;    //making the pins output
 	GPIO_PORTB_DEN_R|=0x0F;    //digital enable for the pins
 
-}
+}*/
 
 
 // **************DAC_Out*********************

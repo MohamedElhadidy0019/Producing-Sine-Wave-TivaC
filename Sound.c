@@ -8,6 +8,8 @@
 
 #include "Sound.h"
 #include "DAC.h"
+#include "Piano.h"
+#include "delay.h"
 #include "..//tm4c123gh6pm.h"
 
 // **************Sound_Init*********************
@@ -15,7 +17,19 @@
 // Also calls DAC_Init() to initialize DAC
 // Input: none
 // Output: none
+int Index;
 void Sound_Init(void){
+	DAC_Init();
+	Index=0;
+	//Setup Systick
+	NVIC_ST_CTRL_R=0;
+  NVIC_ST_RELOAD_R=0x00FFFFFF;
+  NVIC_ST_CURRENT_R=0;
+	//Setting Systick interrupt
+  
+  NVIC_SYS_PRI3_R= (NVIC_SYS_PRI3_R&0x0FFFFFFF) | 0x20000000;  //setting priority to 1
+	NVIC_ST_CTRL_R=0x07; //changed it to enable interrupt
+	
   
 }
 const unsigned short wave[32] = {	
@@ -33,6 +47,19 @@ const unsigned short wave[32] = {
 // Output: none
 void Sound_Tone(unsigned long period){
 // this routine sets the RELOAD and starts SysTick
+	//unsigned long theReload;
+	
+	NVIC_ST_CURRENT_R=0;
+	
+	
+	if(period==0)
+	{
+		Sound_Off();
+		
+		return;
+	}
+	EnableInterrupts();
+	NVIC_ST_RELOAD_R=period;
 }
 
 
@@ -41,11 +68,17 @@ void Sound_Tone(unsigned long period){
 // Output: none
 void Sound_Off(void){
  // this routine stops the sound output
+	DisableInterrupts();
 }
 
 
 // Interrupt service routine
 // Executed every 12.5ns*(period)
 void SysTick_Handler(void){
+	
+	Index++;
+	if(Index==32) 
+		Index=0;
+  DAC_Out(wave[Index]);    // output one value each interrupt
    
 }

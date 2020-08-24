@@ -8,14 +8,28 @@
 // Port E bits 3-0 have 4 piano keys
 
 #include "Piano.h"
+#include "delay.h"
 #include "..//tm4c123gh6pm.h"
+
+#define G    3189   // 784 Hz		
+#define E   3792   // 659.3 Hz		
+#define D   4259   // 587.3 Hz		
+#define C    4780   // 1046.5 Hz		
+
 
 
 // **************Piano_Init*********************
 // Initialize piano key inputs
-// Input: none
+// Input: PE0-3
 // Output: none
+
 void Piano_Init(void){ 
+	unsigned long volatile Edelay;
+	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOE;  //giving clock to portE
+	Edelay= SYSCTL_RCGC2_R;
+	GPIO_PORTE_DIR_R&=~(0x0F);   //making them input
+	GPIO_PORTE_DEN_R|=0x0F;     //digital enable them
+	
   
 }
 // **************Piano_In*********************
@@ -26,5 +40,21 @@ void Piano_Init(void){
 // 0x04 is key 2 pressed, 0x08 is key 3 pressed
 unsigned long Piano_In(void){
   
-  return 0; // remove this, replace with input
+  unsigned long Reading=GPIO_PORTE_DATA_R&0x0F;
+	delay(10);
+	
+	if(Reading==1)
+		return C;
+	if(Reading==2)
+		return D;
+	if(Reading==4)
+		return E;
+	if(Reading==8)
+			return G;
+			
+	
+	
+	
+	
+	return 0;
 }
