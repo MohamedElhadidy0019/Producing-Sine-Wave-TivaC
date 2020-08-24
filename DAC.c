@@ -14,6 +14,8 @@
 // Input: none
 // Output: none
 void DAC_Init(void){
+	SYSCTL_RCGCGPIO_R|=(1<<1); // giving clock to port B
+	
 
 }
 
