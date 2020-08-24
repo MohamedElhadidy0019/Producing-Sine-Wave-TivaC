@@ -11,15 +11,21 @@
 #include "delay.h"
 #include "..//tm4c123gh6pm.h"
 
+#define G    3189   // 784 Hz		
+#define E   3792   // 659.3 Hz		
+#define D   4257   // 587.3 Hz		
+#define C    2389   // 1046.5 Hz		
+
+
 
 // **************Piano_Init*********************
 // Initialize piano key inputs
-// Input: none
+// Input: PE0-3
 // Output: none
 void Piano_Init(void){ 
-	SYSCTL_RCGCGPIO_R|=(1<<4);  //giving clock to portB
-	GPIO_PORTE_DIR_R&=~(0x0F);  //making them input
-	GPIO_PORTE_DEN_R|=0x0F;      //digital enable them
+	SYSCTL_RCGCGPIO_R|=(1<<4);   //giving clock to portB
+	GPIO_PORTE_DIR_R&=~(0x0F);   //making them input
+	GPIO_PORTE_DEN_R|=0x0F;     //digital enable them
 	
   
 }
@@ -31,11 +37,19 @@ void Piano_Init(void){
 // 0x04 is key 2 pressed, 0x08 is key 3 pressed
 unsigned long Piano_In(void){
   
-  unsigned char sw0,sw1,sw2,sw3;
-	sw0=GPIO_PORTE_DATA_R&0x01;
-	sw1=(GPIO_PORTE_DATA_R>>1)&0x01;
-	sw2=(GPIO_PORTE_DATA_R>>2)&0x01;
-	sw3=(GPIO_PORTE_DATA_R>>3)&0x01;
+  unsigned long Reading=GPIO_PORTE_DATA_R&0x0F;
+	delay(10);
+	if(Reading!=1 ||Reading!=2||Reading!=4||Reading!=8)
+			return 0;
+	if(Reading==1)
+		return C;
+	if(Reading==2)
+		return D;
+	if(Reading==4)
+		return E;
+	if(Reading==8)
+			return G;
+			
 	
 	
 	
