@@ -14,6 +14,9 @@
 // Input: none
 // Output: none
 void DAC_Init(void){
+	SYSCTL_RCGCGPIO_R|=(1<<1); // giving clock to port B
+	GPIO_PORTB_DIR_R|=0x0F;    //making the pins output
+	GPIO_PORTB_DEN_R|=0x0F;    //digital enable for the pins
 
 }
 
@@ -23,5 +26,7 @@ void DAC_Init(void){
 // Input: 4-bit data, 0 to 15 
 // Output: none
 void DAC_Out(unsigned long data){
+	
+	GPIO_PORTB_DATA_R = (GPIO_PORTB_DATA_R &0xFFFFFFF0)|data;
   
 }
