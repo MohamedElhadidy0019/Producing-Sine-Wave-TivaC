@@ -8,6 +8,7 @@
 
 #include "Sound.h"
 #include "DAC.h"
+#include "Piano.h"
 #include "delay.h"
 #include "..//tm4c123gh6pm.h"
 
@@ -46,8 +47,19 @@ const unsigned short wave[32] = {
 // Output: none
 void Sound_Tone(unsigned long period){
 // this routine sets the RELOAD and starts SysTick
+	unsigned long theReload;
+	theReload=0;
+	NVIC_ST_CURRENT_R=0;
 	
-	
+	theReload=Piano_In();
+	if(theReload==0)
+	{
+		Sound_Off();
+		
+		return;
+	}
+	EnableInterrupts();
+	NVIC_ST_RELOAD_R=theReload;
 }
 
 
@@ -56,11 +68,15 @@ void Sound_Tone(unsigned long period){
 // Output: none
 void Sound_Off(void){
  // this routine stops the sound output
+	DisableInterrupts();
 }
 
 
 // Interrupt service routine
 // Executed every 12.5ns*(period)
 void SysTick_Handler(void){
+	
+	Index = (Index+1)&0x0FF;     
+  DAC_Out(wave[Index]);    // output one value each interrupt
    
 }

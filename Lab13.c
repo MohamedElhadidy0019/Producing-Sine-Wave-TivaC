@@ -14,8 +14,7 @@
 #include "delay.h"
 
 // basic functions defined at end of startup.s
-void DisableInterrupts(void); // Disable interrupts
-void EnableInterrupts(void);  // Enable interrupts
+
 int main(void){ // Real Lab13 
 	// for the real board grader to work 
 	// you must connect PD3 to your DAC output
