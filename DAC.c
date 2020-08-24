@@ -7,6 +7,7 @@
 // Port B bits 3-0 have the 4-bit DAC
 
 #include "DAC.h"
+#include "delay.h"
 #include "..//tm4c123gh6pm.h"
 
 // **************DAC_Init*********************

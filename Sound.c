@@ -8,6 +8,7 @@
 
 #include "Sound.h"
 #include "DAC.h"
+#include "delay.h"
 #include "..//tm4c123gh6pm.h"
 
 // **************Sound_Init*********************
