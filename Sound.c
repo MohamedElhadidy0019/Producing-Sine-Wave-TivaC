@@ -16,17 +16,18 @@
 // Also calls DAC_Init() to initialize DAC
 // Input: none
 // Output: none
+int Index;
 void Sound_Init(void){
 	DAC_Init();
+	Index=0;
 	//Setup Systick
 	NVIC_ST_CTRL_R=0;
   NVIC_ST_RELOAD_R=1;
   NVIC_ST_CURRENT_R=0;
-  NVIC_ST_CTRL_R=0x05;
 	//Setting Systick interrupt
-  NVIC_ST_CTRL_R=0x07; //changed it to enable interrupt
-  NVIC_SYS_PRI3_R= (NVIC_SYS_PRI3_R&0x0FFFFFFF) | 0x40000000;  //setting priority to 2
-	
+  
+  NVIC_SYS_PRI3_R= (NVIC_SYS_PRI3_R&0x0FFFFFFF) | 0x20000000;  //setting priority to 1
+	NVIC_ST_CTRL_R=0x07; //changed it to enable interrupt
 	
   
 }
