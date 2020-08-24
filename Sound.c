@@ -47,19 +47,19 @@ const unsigned short wave[32] = {
 // Output: none
 void Sound_Tone(unsigned long period){
 // this routine sets the RELOAD and starts SysTick
-	unsigned long theReload;
-	theReload=0;
+	//unsigned long theReload;
+	
 	NVIC_ST_CURRENT_R=0;
 	
-	theReload=Piano_In();
-	if(theReload==0)
+	
+	if(period==0)
 	{
 		Sound_Off();
 		
 		return;
 	}
 	EnableInterrupts();
-	NVIC_ST_RELOAD_R=theReload;
+	NVIC_ST_RELOAD_R=period;
 }
 
 
